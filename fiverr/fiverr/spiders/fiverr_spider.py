@@ -22,16 +22,16 @@ custom_settings_dict = {
 }
 
 # Define the spider class
-class FiverrSpider(scrapy.Spider):
-    name = 'fiverr_spider' # Name of the spider
+class FiverrSpiderSync(scrapy.Spider):
+    name = 'fiverr_spider_sync' # Name of the spider
     allowed_domains = ['fiverr.com'] # Allowed domains to crawl
     custom_settings = custom_settings_dict # Standard custom settings of the spider
-    custom_settings["FEEDS"] = {"gig_data.json":{"format": "json", "overwrite": True}} # Export to a JSON file with an overwrite functionality
+    custom_settings["FEEDS"] = {"gig_data_sync.json":{"format": "json", "overwrite": True}} # Export to a JSON file with an overwrite functionality
     master_url = "https://www.fiverr.com/categories/data/data-processing/data-mining-scraping?source=category_filters"
 
     def start_requests(self):
         yield scrapy.Request(
-            client.scrapyGet(url = FiverrSpider.master_url, country_code = "de", render = True, premium = True), # Must add the premium proxy parameter because Fiverr is hard to scrape
+            client.scrapyGet(url = FiverrSpiderSync.master_url, country_code = "de", render = True, premium = True), # Must add the premium proxy parameter because Fiverr is hard to scrape
             callback = self.parse,
             dont_filter = True
         )
