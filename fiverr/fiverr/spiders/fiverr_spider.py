@@ -14,7 +14,7 @@ client = ScraperAPIClient(api_key = os.getenv("SCRAPER_API_KEY"))
 # Define the dictionary that contains the custom settings of the spiders. This will be used in all other spiders
 custom_settings_dict = {
     "FEED_EXPORT_ENCODING": "utf-8", # UTF-8 deals with all types of characters
-    "RETRY_TIMES": 3, # Retry failed requests up to 3 times
+    "RETRY_TIMES": 5, # Retry failed requests up to 5 times (5 instead of 3 because Fiverr is a hard site to scrape)
     "AUTOTHROTTLE_ENABLED": False, # Disables the AutoThrottle extension (recommended to be used with proxy services unless the website is tough to crawl)
     "RANDOMIZE_DOWNLOAD_DELAY": False, # If enabled, Scrapy will wait a random amount of time (between 0.5 * DOWNLOAD_DELAY and 1.5 * DOWNLOAD_DELAY) while fetching requests from the same website
     "CONCURRENT_REQUESTS": 5, # The maximum number of concurrent (i.e. simultaneous) requests that will be performed by the Scrapy downloader
