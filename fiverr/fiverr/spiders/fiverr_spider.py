@@ -31,7 +31,7 @@ class FiverrSpider(scrapy.Spider):
 
     def start_requests(self):
         yield scrapy.Request(
-            client.scrapyGet(url = FiverrSpider.master_url, country_code = "de", render = True),
+            client.scrapyGet(url = FiverrSpider.master_url, country_code = "de", render = True, premium = True), # Must add the premium proxy parameter because Fiverr is hard to scrape
             callback = self.parse,
             dont_filter = True
         )
@@ -73,4 +73,14 @@ class FiverrSpider(scrapy.Spider):
             }
 
             # Return the data
-            yield data_dict            
+            yield data_dict     
+
+        # Add pagination logic
+        next_page = response.css("li.pagination-arrows > a::attr(href)").get()
+        current_page = response.css("li.page-number.active-page > span::text").get()
+        if next_page is not None and int(current_page) <= 10:
+            yield scrapy.Request(
+                client.scrapyGet(url = next_page, country_code = "de", render = True),
+                callback = self.parse,
+                dont_filter = True
+            )
