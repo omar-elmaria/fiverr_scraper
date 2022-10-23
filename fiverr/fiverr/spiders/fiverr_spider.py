@@ -42,19 +42,21 @@ class FiverrSpider(scrapy.Spider):
             # Some gigs are without reviews, so we need to handle that case
             try:
                 gig_rating = float(gig.css("div.content-info > div.rating-wrapper").xpath("./span[contains(@class, 'gig-rating')]/text()").get())
-                num_reviews = gig.css("div.content-info > div.rating-wrapper").xpath("./span[contains(@class, 'gig-rating')]/span/text()").get().replace("(", "").replace(")", "")
             except TypeError:
                 gig_rating = None
-                num_reviews = None
             
-            # Num reviews should be integer, but some gigs have num_reviews in a string format (e.g., 1k+). Change any num_reviews with a string format to integer
-            if num_reviews == "1k+":
-                num_reviews = "1000" # Assume the seller has 1000 reviews so that we can change the format to integer later
-            else:
-                pass
+            try:
+                num_reviews = gig.css("div.content-info > div.rating-wrapper").xpath("./span[contains(@class, 'gig-rating')]/span/text()").get().replace("(", "").replace(")", "")
+                # Num reviews should be integer, but some gigs have num_reviews in a string format (e.g., 1k+). Change any num_reviews with a string format to integer
+                if num_reviews == "1k+":
+                    num_reviews = "1000" # Assume the seller has 1000 reviews so that we can change the format to integer later
+                else:
+                    pass
 
-            # Change the format of num_reviews to integer
-            num_reviews = int(num_reviews)
+                # Change the format of num_reviews to integer
+                num_reviews = int(num_reviews)
+            except (TypeError, AttributeError):
+                num_reviews = None
 
             # Price points before and after the decimal point are shown separately. We treat this case here  
             gig_starting_price_before_decimal = re.findall(pattern = "\d+", string = gig.css("footer > div.price-wrapper > a > span::text").get())[0]
@@ -75,7 +77,7 @@ class FiverrSpider(scrapy.Spider):
             # Return the data
             yield data_dict     
 
-        # Add pagination logic
+        # Add pagination logic (synchronous)
         next_page = response.css("li.pagination-arrows > a::attr(href)").get()
         current_page = response.css("li.page-number.active-page > span::text").get()
         if next_page is not None and int(current_page) <= 10:
