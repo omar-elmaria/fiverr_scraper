@@ -1,8 +1,8 @@
 # Load the packages
 import scrapy
 import re
-from fiverr.spiders.fiverr_spider import custom_settings_dict
-from fiverr.spiders.fiverr_spider import client
+from fiverr.spiders.fiverr_spider_sync import custom_settings_dict
+from fiverr.spiders.fiverr_spider_sync import client
 
 # Define the spider class
 class FiverrSpiderAsync(scrapy.Spider):
@@ -39,7 +39,7 @@ class FiverrSpiderAsync(scrapy.Spider):
 
                 # Change the format of num_reviews to integer
                 num_reviews = int(num_reviews)
-            except (TypeError, AttributeError): # Error types can be TypeError or Attribute Error
+            except:
                 num_reviews = None
 
             # Price points before and after the decimal point are shown separately. We treat this case here  
