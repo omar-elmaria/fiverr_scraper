@@ -55,7 +55,7 @@ class FiverrSpiderSync(scrapy.Spider):
 
                 # Change the format of num_reviews to integer
                 num_reviews = int(num_reviews)
-            except (TypeError, AttributeError):
+            except:
                 num_reviews = None
 
             # Price points before and after the decimal point are shown separately. We treat this case here  
