@@ -41,7 +41,7 @@ After the spider finishes its job, a **JSON file** will appear in your directory
 _N.B. The picture is truncated to preserve space. Not all fields are shown_
 
 # 3. Spider Design
-In this project, I created two spiders, ```fiverr_spider_sync``` and ```fiverr_spider_async```. The first one utilizes the standard logic suggested by the scrapy documentation to crawl **paginated websites**. It works by obtaining the **link to the next page** via a **CSS or XPATH selector** and sending a ```scrapy.Request``` with a **callback function** to crawl the next page using the same parsing function used for the first page. This logic is shown below.
+In this project, I created two spiders, ```fiverr_spider_sync``` and ```fiverr_spider_async```. The first one utilizes the standard logic suggested by the scrapy documentation to crawl **paginated websites**. It works by obtaining the **link to the next page** via a **CSS or XPATH selector** and sending a ```scrapy.Request``` with a **callback function** to crawl the next page with the same parsing function used for the first page. This logic is shown below.
 ```python
 # def parse(self, response):
   # ... parsing logic is written here
