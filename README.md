@@ -31,7 +31,7 @@ Assuming you already cloned the repo via this command ```git clone https://githu
 ```
 SCRAPER_API_KEY={INSERT_API_KEY_WITHOUT_THE_CURLY_BRACES}
 ```
-If you did that, the spiders should run without problems. To fire up a spider, ```cd``` into the folder ```fiverr``` and run the following command in your terminal, replacing the variable {SPIDER_NAME} with the name of the spider you want to run.
+When you do that, the spiders should run without problems. To fire up a spider, ```cd``` into the folder ```fiverr``` and run the following command in your terminal, replacing the variable {SPIDER_NAME} with the name of the spider you want to run.
 ```
 scrapy crawl SPIDER_NAME
 ```
