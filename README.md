@@ -95,5 +95,18 @@ yield scrapy.Request(
   dont_filter = True
 )
 ```
+
+If you want to run your spiders as a script and **not** from the terminal, use the code below.
+```python
+from scrapy.crawler import CrawlerProcess
+
+class TestSpider(scrapy.Spider):
+  # Some code goes here...
+
+process = CrawlerProcess() # You can also insert custom settings as a dictionary --> CrawlerProcess(settings={"CONCURRENT_REQUESTS": 5}) 
+process.crawl(TestSpider)
+process.start()
+```
+
 # 4. Questions?
 If you have any questions or wish to build a scraper for a particular use case, feel free to contact me on [LinkedIn](https://www.linkedin.com/in/omar-elmaria/)
