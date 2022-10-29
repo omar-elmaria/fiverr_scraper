@@ -88,6 +88,7 @@ In this project, I use ```render``` to render the Javascript content of Fiverr, 
 
 Whenever you send similar requests to a webpage, which is the case we have with this spider, ```Scrapy``` automatically filters out the duplicate ones, which prevents you from crawling all the data you want. To prevent this behavior, you should set the ```dont_filter``` parameter in the ```scrapy.Request``` method to ```True``` like so...
 ```python
+url = "https://www.fiverr.com/categories/data/data-processing?source=category_tree"
 yield scrapy.Request(
   client.scrapyGet(url = url, country_code = "de", render = True, premium = True),
   callback = self.parse,
