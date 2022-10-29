@@ -57,7 +57,7 @@ In this project, I created two spiders, ```fiverr_spider_sync``` and ```fiverr_s
       )
 ```
 
-The problem with this logic is that it **kills concurrency** because you need to wait for one page to be rendered and crawled before you can send a request to the next page and crawl it. That's where the second spider ```fiverr_spider_async``` comes in. It sends requests to the 10 pages that I wanted to crawl **asynchronously** and parses the data whenever it receives back a response from the Fiverr server. I recommend you use that spider because it is 5 to 7 times faster than the other one.
+The problem with this logic is that it **kills concurrency** because you need to wait for one page to be rendered and crawled before you can send a request to the next page and crawl it. That's where the second spider ```fiverr_spider_async``` comes in. It sends requests to the 10 pages that I want to crawl **asynchronously** and parses the data whenever it receives back a response from Fiverr's server. I recommend you use that spider because it is 5 to 7 times faster than the other one.
 
 ## 3.1 Scrapy and ScraperAPI Best Practices
 Whenever you use ```ScraperAPI```, it is recommended that you add these settings to your spider class. You can check how the dictionary below is added to the spider class by looking at one of the spider Py files.
